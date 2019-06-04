@@ -5,7 +5,6 @@ respAlt = 's'
 respDel = 's'
 num = ''
 contatos = {}
-contatos2 = {}
 
 print('\nBEM VINDO A LISTA TELEFÔNICA 2019\n')
 
@@ -41,8 +40,7 @@ while (cont == 0):
                 else:
                     # Cadastra o nome como chave no dicionario "contatos"
                     contatos[nome] = num
-                    # Cadastra o numero como chave no dicionario "contatos2"
-                    contatos2[num] = nome       
+
             # Aqui se pergunta se o usuário quer continuar no menu "adicionar"
             respAdc = input('\n\nDeseja adicionar mais um contato? S para sim e N para não: ')
                 
@@ -56,20 +54,22 @@ while (cont == 0):
         # Enquanto respCons valer 's' será executado        
         while (respCons == 's' or respCons == 'S'):
             # Pergunta se o usuário deseja consultar pelo nome(1) ou pelo numero(2)
-            tipoCons = int(input('\nComo deseja consultar?\n1 para consultar pelo NOME\n2 para consultar pelo NÚMERO\n'))
+            #tipoCons = int(input('\nComo deseja consultar?\n1 para consultar pelo NOME\n2 para consultar pelo NÚMERO\n'))
                 
             # Se a resposta for positiva para "nome"
-            if (tipoCons == 1):
-                # Pede para digitar o nome
-                cons = input('\nDigite o nome do contato\n')
-                # Mostra o contato caso exista / caso não exista exibe uma mensagem de erro    
-                print(contatos.get(cons, 'Contato não encontrado'))
+            #if (tipoCons == 1):
+
+            # Pede para digitar o nome
+            cons = input('\nDigite o nome do contato\n')
+            # Mostra o contato caso exista / caso não exista exibe uma mensagem de erro    
+            print(contatos.get(cons, 'Contato não encontrado'))
+
             # Se a resposta for positiva para "numero"        
-            elif (tipoCons == 2):
+            #elif (tipoCons == 2):
                 # Pede para digitar o numero    
-                cons = input('\nDigite o número do telefone\n')
+                #cons = input('\nDigite o número do telefone\n')
                 # Mostra o contato caso exista / caso não exista exibe uma mensagem de erro    
-                print(contatos2.get(cons, 'Contato não encontrado'))
+                #print(contatos2.get(cons, 'Contato não encontrado'))
                     
             # Aqui se pergunta se o usuário quer continuar no menu "consulta"
             respCons = input('\nDeseja consultar outro contato? S para sim e N para não: ')
@@ -125,9 +125,17 @@ while (cont == 0):
                 
     # Caso selecione a opção de consultar (5) //Menu principal
     elif (opc == 5):
-        sorted(contatos.values())
-        for item in contatos.keys():
-            print ("Nome: {0} | Telefone: {1}" .format(item, contatos[item]))
+        tipoCons = int(input('\nComo deseja exibir?\n1 para exibir por ordem alfabética (A-Z)\n2 para exibir por ordem alfabética (Z-A)\n'))
+        
+        if (tipoCons == 1):
+            # Exibe os contatos em ordem alfabética
+            for item in sorted(contatos.keys()):
+                print ("Nome: {0} | Telefone: {1}" .format(item, contatos[item]))
+        elif (tipoCons == 2):
+            for item in sorted(contatos.keys(), reverse=True):
+                print ("Nome: {0} | Telefone: {1}" .format(item, contatos[item]))
+        
+        input('\nENTER para continuar\n')
 
    # Caso selecione a opção de sair (0)
     elif (opc == 0):
@@ -140,4 +148,4 @@ while (cont == 0):
         print('\nERRO001: Opção inválida, favor tente novamente!')
             
 # Mensagem de despedida ao encerrar o programa            
-print('\n\nObrigada por utilizar nosso programa!')
+print('\nObrigada por utilizar nosso programa!')
