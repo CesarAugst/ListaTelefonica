@@ -6,30 +6,47 @@ respCons = 's'
 respAlt = 's'
 respDel = 's'
 num = ''
-importar = 0
+importar = 21
+contatos = {}
+procura = ''
 
 print('\nBEM VINDO A LISTA TELEFÔNICA 2019\n')
 
-# while (importar != 1 or importar != 2):
-#     importar = int(input('\nDeseja importar os contatos?\n1 para SIM\n2 para NÃO\n'))
-#     if(importar == 1):
-arq = open('contatos.txt','rb')
-contatos = pickle.load(arq)
-arq.close()
-print('\nCONTATOS IMPORTADOS COM SUCESSO!')
-    #     break
-    # elif(importar == 2):
-    #     contatos = {}
-    #     print('\nCONTATOS NÃO IMPORTADOS!')
-    #     break
-    # else:
-    #     print('\nOpção inválida, favor tente novamente!')
-    
+while (importar != 1 or importar != 2 or importar != 3):
+    try:
+        importar = int(input('\nDeseja importar ou criar uma agenda?\n1 para IMPORTAR\n2 para CRIAR UM NOVO\n3 para NÃO IMPORTAR NEM GRAVAR\n0 para SAIR\n'))
+        if(importar == 1):
+            nomeAgenda = input('\nQual é o nome do arquivo que deseja abrir? Obs: Caso o arquivo tenha extensão, não esqueça!\n')
+            try:
+                arq = open(nomeAgenda,'rb') # Abrir o arquivo para leitura - o "b" significa que o arquivo é binário
+                contatos = pickle.load(arq) # Ler a stream a partir do arquivo e reconstroi o objeto original.
+                arq.close() # Fechar o arquivo
+                print('\nCONTATOS IMPORTADOS COM SUCESSO!')
+                break
+            except:
+                print('\nAgenda não encontrada')
+                importar = 21
+
+        elif(importar == 2):
+            nomeAgenda = input('\nQual será o nome da nova agenda?\n')
+            arq = open(nomeAgenda,'wb') # Abrir o arquivo para gravação - o "b" significa que o arquivo é binário
+            pickle.dump(contatos,arq) # Grava uma stream do objeto "contatos" para um novo arquivo
+            arq.close() # fechar o arquivo
+            break
+        elif(importar == 3):
+            print('\nCONTATOS NÃO IMPORTADOS!')
+            break
+        elif(importar == 0):
+            break
+        else:
+            print('\nOpção inválida, favor tente novamente!')
+    except:
+        print('\nDigite somente números!')
 
 # Repete o algoritmo por completo
-while (opc != 0):
+while (opc != 0 and importar != 0):
     # Mostra o menu para o usuário   
-    opc = int(input('\nDIGITE A OPÇÃO DESEJADA?\n1 para CADASTRAR\n2 para CONSULTAR\n3 para ALTERAR\n4 para EXCLUIR\n5 para VISUALIZAR TODOS OS CONTATOS\n0 para SAIR\n'))
+    opc = int(input('\nDIGITE A OPÇÃO DESEJADA\n1 para CADASTRAR\n2 para CONSULTAR\n3 para ALTERAR\n4 para EXCLUIR\n5 para VISUALIZAR TODOS OS CONTATOS\n0 para SAIR\n'))
 
     # Caso selecione a opção de cadastrar (1) //Menu principal
     if (opc == 1):
@@ -61,11 +78,6 @@ while (opc != 0):
 
             # Aqui se pergunta se o usuário quer continuar no menu "adicionar"
             respAdc = input('\n\nDeseja adicionar mais um contato? S para sim e N para não: ')
-
-        if (importar == 1):
-            arq = open('contatos.txt','wb') #abrir o arquivo para gravação - o "b" significa que o arquivo é binário
-            pickle.dump(contatos,arq) #Grava uma stream do objeto "contatos" para o arquivo.
-            arq.close() #fechar o arquivo
                 
     # Caso selecione a opção de consultar (2) //Menu principal
     elif (opc == 2):
@@ -77,22 +89,30 @@ while (opc != 0):
         # Enquanto respCons valer 's' será executado        
         while (respCons == 's' or respCons == 'S'):
             # Pergunta se o usuário deseja consultar pelo nome(1) ou pelo numero(2)
-            #tipoCons = int(input('\nComo deseja consultar?\n1 para consultar pelo NOME\n2 para consultar pelo NÚMERO\n'))
+            tipoCons = int(input('\nComo deseja consultar?\n1 para consultar pelo NOME\n2 para consultar pelo NÚMERO\n'))
                 
             # Se a resposta for positiva para "nome"
-            #if (tipoCons == 1):
-
+            if (tipoCons == 1):
             # Pede para digitar o nome
-            cons = input('\nDigite o nome do contato\n')
-            # Mostra o contato caso exista / caso não exista exibe uma mensagem de erro    
-            print(contatos.get(cons, 'Contato não encontrado'))
+                cons = input('\nDigite o nome do contato\n')
+                # Mostra o contato caso exista / caso não exista exibe uma mensagem de erro    
+                print(contatos.get(cons, 'Contato não encontrado'))
 
             # Se a resposta for positiva para "numero"        
-            #elif (tipoCons == 2):
+            elif (tipoCons == 2):
                 # Pede para digitar o numero    
-                #cons = input('\nDigite o número do telefone\n')
-                # Mostra o contato caso exista / caso não exista exibe uma mensagem de erro    
-                #print(contatos2.get(cons, 'Contato não encontrado'))
+                cons = input('\nDigite o número do telefone\n')
+                # Mostra o contato caso exista / caso não exista exibe uma mensagem de erro 
+                if (procura != ''):
+                    procura = ''
+                for i in contatos:
+                    if (contatos[i] == cons):
+                        procura = i
+                        break
+                if (procura != ''):
+                    print("Nome: {0} | Número: {1}" .format(procura, cons))
+                else:
+                    print('\nContato não encontrado!')
                     
             # Aqui se pergunta se o usuário quer continuar no menu "consulta"
             respCons = input('\nDeseja consultar outro contato? S para sim e N para não: ')
@@ -106,15 +126,37 @@ while (opc != 0):
             respAlt = 's'
         # Repete a funcionalidade da opção
         while (respAlt == 's' or respAlt == 'S'):
-            cons = input('\nDigite o nome do contato\n')
-            if (cons in contatos):
+            tipoCons = int(input('\nComo alterar deletar?\n1 para alterar pelo NOME\n2 para alterar pelo NÚMERO\n'))
+
+            # Se a resposta for positiva para "nome"
+            if (tipoCons == 1):
+                cons = input('\nDigite o nome do contato\n')
+                if (cons in contatos):
+                    nome = cons
+                    verifica = 1
+                else:
+                    print('\nContato não encontrado!')
+            elif (tipoCons == 2):
+                cons = input('\nDigite o número do telefone\n')
+                if (procura != ''):
+                    procura = ''
+                for i in contatos:
+                    if (contatos[i] == cons):
+                        nome = i
+                        break
+                if (procura != ''):
+                    verifica = 1
+                else:
+                    print('\nContato não encontrado!')
+
+            if (verifica == 1):
                 tipoCons = int(input('\nDeseja alterar o nome ou número?\n1 para o NOME\n2 para o NÚMERO\n'))
                 if (tipoCons == 1):
-                    nome = input('\nDigite o novo nome\n')
-                    contatos[nome] = contatos.pop(cons)
+                    nvNome = input('\nDigite o novo nome\n')
+                    contatos[nvNome] = contatos.pop(nome)
                 elif (tipoCons == 2):
                     num = input('\nDigite o novo número\n')
-                    contatos[cons] = num
+                    contatos[nome] = num
                 else:
                     print('\nOpção inválida, por favor tente novamente')
                     tipoCons = int(input('\nDeseja alterar o nome ou número?\n1 para o NOME\n2 para o NÚMERO\n'))
@@ -123,7 +165,7 @@ while (opc != 0):
 
             # Aqui se pergunta se o usuário quer continuar
             
-            respAlt = input('\nDeseja consultar outro contato? S para sim e N para não: ')
+            respAlt = input('\nDeseja alterar outro contato? S para sim e N para não: ')
 
     # Caso selecione a opção de deletar (4) //Menu principal
     elif(opc == 4):
@@ -134,25 +176,34 @@ while (opc != 0):
             respDel = 's'
         # Enquanto respDel valer 's' será executado
         while (respDel == 's' or respDel == 'S'):
-            # Pergunta se o usuário deseja consultar pelo nome(1) ou pelo numero(2)
-            tipoCons = int(input('\nComo deseja consultar?\n1 para consultar pelo NOME\n2 para consultar pelo NÚMERO\n'))
+            # Pergunta se o usuário deseja deletar pelo nome(1) ou pelo numero(2)
+            tipoCons = int(input('\nComo deseja deletar?\n1 para deletar pelo NOME\n2 para deletar pelo NÚMERO\n'))
                 
             if (tipoCons == 1):
                 cons = input('\nDigite o nome do contato\n')
                 print(contatos.pop(cons, 'Contato não encontrado'))
             elif (tipoCons == 2):
                 cons = input('\nDigite o número do telefone\n')
-                print(contatos.popitem(cons))
+                if (procura != ''):
+                    procura = ''
+                for i in contatos:
+                    if (contatos[i] == cons):
+                        procura = i
+                        break
+                if (procura != ''):
+                    print(contatos.pop(procura, 'Contato não encontrado'))
+                else:
+                    print('\nContato não encontrado!')
 
             # Aqui se pergunta se o usuário quer continuar
             respDel = input('\nDeseja consultar outro contato? S para sim e N para não: ')
                 
     # Caso selecione a opção de consultar (5) //Menu principal
     elif (opc == 5):
-        tipoCons = int(input('\nComo deseja exibir?\n1 para exibir por ordem alfabética (A-Z)\n2 para exibir por ordem alfabética (Z-A)\n3 para exibir em ordem CRESCENTE por número de telefone\n4 para exibir em ordem DECRESCENTE por número de telefone\n'))
+        tipoCons = int(input('\nComo deseja exibir?\n1 para exibir por ordem alfabética CRESCENTE(A-Z)\n2 para exibir por ordem alfabética DECRESCENTE(Z-A)\n3 para exibir em ordem CRESCENTE por número de telefone\n4 para exibir em ordem DECRESCENTE por número de telefone\n'))
         
         if (tipoCons == 1):
-            # Exibe os contatos em ordem alfabética
+            # Exibe os contatos em ordem alfabética crescente (A-Z)
             for item in sorted(contatos.keys()):
                 print ("Nome: {0} | Telefone: {1}" .format(item, contatos[item]))
         elif (tipoCons == 2):
@@ -165,19 +216,20 @@ while (opc != 0):
             for item in sorted(contatos, key = contatos.get, reverse=True):
                 print ("Nome: {0} | Telefone: {1}" .format(item, contatos[item]))
         
-        input('\nENTER para continuar\n')
+        input('\nENTER para continuar')
 
    # Caso selecione a opção de sair (0)
     elif (opc == 0):
         # Mensagem de despedida ao encerrar o programa   
-        print('\nObrigada por utilizar nosso programa!')
-            
+        break
     #  Caso tenha digitado errado //Menu principal        
     else:
         # Mensagem exibida caso tenha digitado errado
         print('\nERRO001: Opção inválida, favor tente novamente!')   
-         
-if (importar == 1):
-            arq = open('contatos.txt','wb') #abrir o arquivo para gravação - o "b" significa que o arquivo é binário
+
+    if (importar != 3):
+            arq = open(nomeAgenda,'wb') #abrir o arquivo para gravação - o "b" significa que o arquivo é binário
             pickle.dump(contatos,arq) #Grava uma stream do objeto "contatos" para o arquivo.
-            arq.close() #fechar o arquivo
+            arq.close() #fechar o arquivo     
+
+print('\nObrigada por utilizar nosso programa!')
