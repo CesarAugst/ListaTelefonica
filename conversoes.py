@@ -42,4 +42,4 @@ while (tipoConv != 0):
             print('{} milhas equivale a {} km'.format(milha, km))
             input('\nENTER para continuar\n')
 
-print('\n Obrigada por utilizar nosso programa!')
+print('\nObrigada por utilizar nosso programa!')

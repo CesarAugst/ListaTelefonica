@@ -1,10 +1,14 @@
+import pickle #modulo pickle
+
 cont = 0
 respAdc = 's'
 respCons = 's'
 respAlt = 's'
 respDel = 's'
 num = ''
-contatos = {}
+arq = open('contatos.txt','rb')
+contatos = pickle.load(arq)
+arq.close()
 
 print('\nBEM VINDO A LISTA TELEFÔNICA 2019\n')
 
@@ -43,6 +47,10 @@ while (cont == 0):
 
             # Aqui se pergunta se o usuário quer continuar no menu "adicionar"
             respAdc = input('\n\nDeseja adicionar mais um contato? S para sim e N para não: ')
+
+        arq = open('contatos.txt','wb') #abrir o arquivo para gravação - o "b" significa que o arquivo é binário
+        pickle.dump(contatos,arq) #Grava uma stream do objeto "contatos" para o arquivo.
+        arq.close() #fechar o arquivo
                 
     # Caso selecione a opção de consultar (2) //Menu principal
     elif (opc == 2):
@@ -99,6 +107,7 @@ while (cont == 0):
                 print('\nContato não encontrado!\n')
 
             # Aqui se pergunta se o usuário quer continuar
+            
             respAlt = input('\nDeseja consultar outro contato? S para sim e N para não: ')
 
     # Caso selecione a opção de deletar (4) //Menu principal
@@ -125,7 +134,7 @@ while (cont == 0):
                 
     # Caso selecione a opção de consultar (5) //Menu principal
     elif (opc == 5):
-        tipoCons = int(input('\nComo deseja exibir?\n1 para exibir por ordem alfabética (A-Z)\n2 para exibir por ordem alfabética (Z-A)\n'))
+        tipoCons = int(input('\nComo deseja exibir?\n1 para exibir por ordem alfabética (A-Z)\n2 para exibir por ordem alfabética (Z-A)\n3 para exibir em ordem CRESCENTE por número de telefone\n4 para exibir em ordem DECRESCENTE por número de telefone\n'))
         
         if (tipoCons == 1):
             # Exibe os contatos em ordem alfabética
@@ -133,6 +142,12 @@ while (cont == 0):
                 print ("Nome: {0} | Telefone: {1}" .format(item, contatos[item]))
         elif (tipoCons == 2):
             for item in sorted(contatos.keys(), reverse=True):
+                print ("Nome: {0} | Telefone: {1}" .format(item, contatos[item]))
+        elif (tipoCons == 3):
+            for item in sorted(contatos, key = contatos.get):
+                print ("Nome: {0} | Telefone: {1}" .format(item, contatos[item]))
+        elif (tipoCons == 4):
+            for item in sorted(contatos, key = contatos.get, reverse=True):
                 print ("Nome: {0} | Telefone: {1}" .format(item, contatos[item]))
         
         input('\nENTER para continuar\n')
