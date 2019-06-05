@@ -144,9 +144,10 @@ while (opc != 0 and importar != 0):
                     if (contatos[i] == cons):
                         nome = i
                         break
-                if (procura != ''):
+                if (nome != ''):
                     verifica = 1
                 else:
+                    procura = ''
                     print('\nContato não encontrado!')
 
             if (verifica == 1):
