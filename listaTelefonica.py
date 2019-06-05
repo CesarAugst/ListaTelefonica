@@ -1,19 +1,33 @@
 import pickle #modulo pickle
 
-cont = 0
+opc = 21
 respAdc = 's'
 respCons = 's'
 respAlt = 's'
 respDel = 's'
 num = ''
-arq = open('contatos.txt','rb')
-contatos = pickle.load(arq)
-arq.close()
+importar = 0
 
 print('\nBEM VINDO A LISTA TELEFÔNICA 2019\n')
 
+# while (importar != 1 or importar != 2):
+#     importar = int(input('\nDeseja importar os contatos?\n1 para SIM\n2 para NÃO\n'))
+#     if(importar == 1):
+arq = open('contatos.txt','rb')
+contatos = pickle.load(arq)
+arq.close()
+print('\nCONTATOS IMPORTADOS COM SUCESSO!')
+    #     break
+    # elif(importar == 2):
+    #     contatos = {}
+    #     print('\nCONTATOS NÃO IMPORTADOS!')
+    #     break
+    # else:
+    #     print('\nOpção inválida, favor tente novamente!')
+    
+
 # Repete o algoritmo por completo
-while (cont == 0):
+while (opc != 0):
     # Mostra o menu para o usuário   
     opc = int(input('\nDIGITE A OPÇÃO DESEJADA?\n1 para CADASTRAR\n2 para CONSULTAR\n3 para ALTERAR\n4 para EXCLUIR\n5 para VISUALIZAR TODOS OS CONTATOS\n0 para SAIR\n'))
 
@@ -48,9 +62,10 @@ while (cont == 0):
             # Aqui se pergunta se o usuário quer continuar no menu "adicionar"
             respAdc = input('\n\nDeseja adicionar mais um contato? S para sim e N para não: ')
 
-        arq = open('contatos.txt','wb') #abrir o arquivo para gravação - o "b" significa que o arquivo é binário
-        pickle.dump(contatos,arq) #Grava uma stream do objeto "contatos" para o arquivo.
-        arq.close() #fechar o arquivo
+        if (importar == 1):
+            arq = open('contatos.txt','wb') #abrir o arquivo para gravação - o "b" significa que o arquivo é binário
+            pickle.dump(contatos,arq) #Grava uma stream do objeto "contatos" para o arquivo.
+            arq.close() #fechar o arquivo
                 
     # Caso selecione a opção de consultar (2) //Menu principal
     elif (opc == 2):
@@ -154,13 +169,15 @@ while (cont == 0):
 
    # Caso selecione a opção de sair (0)
     elif (opc == 0):
-        # O contador do menu principal recebe +1 e encerra = 1
-        cont+=1
-
+        # Mensagem de despedida ao encerrar o programa   
+        print('\nObrigada por utilizar nosso programa!')
+            
     #  Caso tenha digitado errado //Menu principal        
     else:
         # Mensagem exibida caso tenha digitado errado
-        print('\nERRO001: Opção inválida, favor tente novamente!')
-            
-# Mensagem de despedida ao encerrar o programa            
-print('\nObrigada por utilizar nosso programa!')
+        print('\nERRO001: Opção inválida, favor tente novamente!')   
+         
+if (importar == 1):
+            arq = open('contatos.txt','wb') #abrir o arquivo para gravação - o "b" significa que o arquivo é binário
+            pickle.dump(contatos,arq) #Grava uma stream do objeto "contatos" para o arquivo.
+            arq.close() #fechar o arquivo
