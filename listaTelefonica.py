@@ -135,11 +135,12 @@ while (opc != 0 and importar != 0):
                     nome = cons
                     verifica = 1
                 else:
+                    verifica = 0
                     print('\nContato não encontrado!')
             elif (tipoCons == 2):
                 cons = input('\nDigite o número do telefone\n')
-                if (procura != ''):
-                    procura = ''
+                if (nome != ''):
+                    nome = ''
                 for i in contatos:
                     if (contatos[i] == cons):
                         nome = i
@@ -147,7 +148,7 @@ while (opc != 0 and importar != 0):
                 if (nome != ''):
                     verifica = 1
                 else:
-                    procura = ''
+                    verifica = 0
                     print('\nContato não encontrado!')
 
             if (verifica == 1):
