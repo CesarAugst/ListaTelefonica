@@ -1,0 +1,29 @@
+Plano de teste do sistema 
+
+Nome do Projeto: AGENDA TELEFÔNICA
+
+Pessoas Envolvidas / Responsáveis pelo desenvolvimento : 
+Cesar, Eloisa e Larissa
+
+Funcionalidades ou Módulos:
+Criação de agenda telefonica;
+Gravação de dados no disco rígido ou memoria permamente;
+Recuperação de dados;
+Manipulação de arquivos;
+Armazenamento, alterações e exclusões de informações referentes a nomes e telefones;
+Listagem e orgabização em ordem alfabética ou númerica;
+Conversões de moedas;
+Conversões métricas;
+
+Equipamentos / Softwares:
+O sistema deve funcionar em interpretadores de linguagem Python (Idle, terminal, Pycharm) 
+
+Cronograma
+Data de Início e Fim do Projeto: 23/05/2019 – 13/06/2019
+Data de Início e Fim do Teste: 30/05/2019 a 13/06/2019
+
+Local dos Testes:
+O sistema não possuí local especifico para teste. Os mesmo serão executados pelos envolvidos e possíveis usuários.
+
+Critérios para considerar o teste finalizado:
+O teste será considerando finalizado quando todas os itens do checklist estiverem com a consideração "Executado com sucesso".
