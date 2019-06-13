@@ -51,29 +51,6 @@ while (opc != 0 and importar != 0):
     # Caso selecione a opção de cadastrar (1) //Menu principal
     if (opc == 1):
         print('\nCADASTRAR CONTATOS')
-<<<<<<< HEAD
-        # Se a resposta for positiva para "cadastrar"
-        if (respAdc != 's' or respAdc != 'S'):
-            # A variavel "respADC" recebe 's'
-            respAdc = 's'
-        	# Enquanto respADC valer 's' será executado
-        while (respAdc == 's' or respAdc == 'S'): 
-            # Solicita ao usuário que digite o nome
-            nome = input('\nNome: ')
-            	# Se o nome ja existir em "contatos"
-            if (nome in contatos):
-                # Exibe essa mensagem
-                print('\nEste nome de contato já existe na agenda!\n')
-            		# Se não existir
-            else:
-                # Pede para adicionar o número
-                num = input('Número: ')
-                	# Se o numero ja existir
-                if (num in contatos.values()):
-                    # Exibe essa mensagem
-                    print('Este número já existe na agenda!')
-                	# Se não existir    
-=======
         # Se a resposta for negativa para "cadastrar"
         if (respAdc != 's' or respAdc != 'S'):
             # A variavel "respADC" recebe 's'
@@ -93,28 +70,19 @@ while (opc != 0 and importar != 0):
                 # Se o numero ja existir
                 if (num in contatos.values()):
                     # Exibe essa mensagem
-                    print('Este número já existe na agenda!')
+                    print('\nEste número já existe na agenda!')
                 # Se não existir    
->>>>>>> 817a2a751509ee30cd79c30261f111464bcd2ff9
                 else:
                     # Cadastra o nome como chave no dicionario "contatos"
                     contatos[nome] = num
 
-<<<<<<< HEAD
-            	# Aqui se pergunta se o usuário quer continuar no menu "adicionar"
-=======
             # Aqui se pergunta se o usuário quer continuar no menu "adicionar"
->>>>>>> 817a2a751509ee30cd79c30261f111464bcd2ff9
             respAdc = input('\n\nDeseja adicionar mais um contato? S para sim e N para não: ')
                 
     # Caso selecione a opção de consultar (2) //Menu principal
     elif (opc == 2):
         print('\nCONSULTAR CONTATOS')
-<<<<<<< HEAD
-        # Se a resposta for positiva para "consultar"
-=======
         # Se a resposta for negativa para "consultar"
->>>>>>> 817a2a751509ee30cd79c30261f111464bcd2ff9
         if (respCons != 's' or respCons != 'S'):
             # A variavel "respCons" recebe 's'
             respCons = 's'
@@ -125,26 +93,16 @@ while (opc != 0 and importar != 0):
                 
             # Se a resposta for positiva para "nome"
             if (tipoCons == 1):
-<<<<<<< HEAD
-            	# Pede para digitar o nome
-                cons = input('\nDigite o nome do contato\n')
-                	# Mostra o contato caso exista / caso não exista exibe uma mensagem de erro    
-=======
             # Pede para digitar o nome
                 cons = input('\nDigite o nome do contato\n')
-                # Mostra o contato caso exista / caso não exista exibe uma mensagem de erro    
->>>>>>> 817a2a751509ee30cd79c30261f111464bcd2ff9
+                # Mostra o contato caso e1xista / caso não exista exibe uma mensagem de erro    
                 print(contatos.get(cons, 'Contato não encontrado'))
 
             # Se a resposta for positiva para "numero"        
             elif (tipoCons == 2):
                 # Pede para digitar o numero    
                 cons = input('\nDigite o número do telefone\n')
-<<<<<<< HEAD
-                	# Mostra o contato caso exista / caso não exista exibe uma mensagem de erro 
-=======
                 # Mostra o contato caso exista / caso não exista exibe uma mensagem de erro 
->>>>>>> 817a2a751509ee30cd79c30261f111464bcd2ff9
                 if (procura != ''):
                     procura = ''
                 for i in contatos:
@@ -168,7 +126,7 @@ while (opc != 0 and importar != 0):
             respAlt = 's'
         # Repete a funcionalidade da opção
         while (respAlt == 's' or respAlt == 'S'):
-            tipoCons = int(input('\nComo alterar deletar?\n1 para alterar pelo NOME\n2 para alterar pelo NÚMERO\n'))
+            tipoCons = int(input('\nComo deseja consultar o contato a ser alterado?\n1 para alterar pelo NOME\n2 para alterar pelo NÚMERO\n'))
 
             # Se a resposta for positiva para "nome"
             if (tipoCons == 1):
